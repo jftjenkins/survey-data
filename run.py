@@ -13,7 +13,12 @@ def authenticate_google_sheets():
 
 
 # Function to retrieve data from a specific Google Sheet
-def get_data_from_google_sheet(client, sheet_name):
+def get_data_from_google_sheet(CLIENT):
+    spreadsheet = CLIENT.open("student_data")
+    worksheet = spreadsheet.get_worksheet(0)
+    data = worksheet.get_all_records()
+    df = pd.DataFrame(data)
+    return df
 
 
 # Function to analyze the data (total students, favorite subjects, club counts)
@@ -30,6 +35,8 @@ def display_results(df, total_students, favorite_subjects, club_counts):
 
 # Main function that orchestrates the workflow
 def main():
+    CLIENT = authenticate_google_sheets()
+    df = get_data_from_google_sheet(CLIENT)
 
 
 # Entry point of the script
