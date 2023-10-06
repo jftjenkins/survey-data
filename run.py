@@ -6,6 +6,10 @@ import matplotlib.pyplot as plt
 
 # Function to authenticate with Google Sheets API
 def authenticate_google_sheets():
+    SCOPE = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+    CREDENTIALS = ServiceAccountCredentials.from_json_keyfile_name("creds.json", SCOPE)
+    CLIENT = gspread.authorize(CREDENTIALS)
+    return CLIENT
 
 
 # Function to retrieve data from a specific Google Sheet
