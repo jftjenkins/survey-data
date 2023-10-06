@@ -23,6 +23,12 @@ def get_data_from_google_sheet(CLIENT):
 
 # Function to analyze the data (total students, favorite subjects, club counts)
 def analyze_data(df):
+    total_students = len(df)
+    favorite_subjects = df['Favourite Subject'].value_counts().reset_index()
+    club_counts = df['Club'].value_counts().reset_index()
+    favorite_subjects.columns = ['Favourite Subject', 'Count']
+    club_counts.columns = ['Club', 'Count']
+    return total_students, favorite_subjects, club_counts
 
 
 # Function to plot the data (gender distribution, favorite subjects distribution)
@@ -37,6 +43,7 @@ def display_results(df, total_students, favorite_subjects, club_counts):
 def main():
     CLIENT = authenticate_google_sheets()
     df = get_data_from_google_sheet(CLIENT)
+    total_students, favorite_subjects, club_counts = analyze_data(df)
 
 
 # Entry point of the script
