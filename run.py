@@ -41,8 +41,15 @@ def display_results(df, total_students, favorite_subjects, club_counts):
     print("\nClub Counts:")
     print(club_counts)
 
+
 # Function to plot the data (gender distribution, favorite subjects distribution)
 def plot_data(df):
+    plt.figure(figsize=(8, 6))
+    df['Gender'].value_counts().plot(kind='bar')
+    plt.title('Distribution of Gender')
+    plt.xlabel('Gender')
+    plt.ylabel('Count')
+    plt.show()
 
 
 # Main function that orchestrates the workflow
@@ -51,8 +58,14 @@ def main():
     df = get_data_from_google_sheet(CLIENT)
     total_students, favorite_subjects, club_counts = analyze_data(df)
 
+
+    # Plotting data
+    plot_data(df)
+
+
     # Display the results in the console
     display_results(df, total_students, favorite_subjects, club_counts)
 
 
-# Entry point of the script
+if __name__ == "__main__":
+    main()
