@@ -31,12 +31,18 @@ def analyze_data(df):
     return total_students, favorite_subjects, club_counts
 
 
-# Function to plot the data (gender distribution, favorite subjects distribution)
-def plot_data(df):
-
-
 # Function to display data and analysis results in the console
 def display_results(df, total_students, favorite_subjects, club_counts):
+    print("Survey Data:")
+    print(df)
+    print("\nTotal Students:", total_students)
+    print("\nFavorite Subjects:")
+    print(favorite_subjects)
+    print("\nClub Counts:")
+    print(club_counts)
+
+# Function to plot the data (gender distribution, favorite subjects distribution)
+def plot_data(df):
 
 
 # Main function that orchestrates the workflow
@@ -44,6 +50,9 @@ def main():
     CLIENT = authenticate_google_sheets()
     df = get_data_from_google_sheet(CLIENT)
     total_students, favorite_subjects, club_counts = analyze_data(df)
+
+    # Display the results in the console
+    display_results(df, total_students, favorite_subjects, club_counts)
 
 
 # Entry point of the script
