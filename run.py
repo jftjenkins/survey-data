@@ -22,7 +22,7 @@ def get_data_from_google_sheet(CLIENT):
     while True:
         # Ask user for column name and value to filter the data
         column_name = input(
-            "Enter column name (Gender, Year, Favourite Subject, or Club): ").strip().title()
+            "\nEnter column name (Gender, Year, Favourite Subject, or Club): ").strip().title()
         if column_name not in ['Gender', 'Year', 'Favourite Subject', 'Club']:
             print(
                 "Invalid column name. Please choose from Gender, Year, Favourite Subject, or Club.")
@@ -68,7 +68,9 @@ def analyze_data(df):
 
 # Function to display data and analysis results in the console
 def display_results(df, total_students, favorite_subjects, club_counts):
+    print()
     print("Survey Data:")
+    print()
     print(df)
     print("\nTotal Students:", total_students)
 
@@ -134,27 +136,26 @@ def add_new_student(CLIENT):
             break  # Exit the loop if the user doesn't want to add another student
 
 
-# Update the main function to include the new functionality
+# Main function that orchestrates the workflow
 def main():
     CLIENT = authenticate_google_sheets()
 
-    df = get_data_from_google_sheet(CLIENT)
-    total_students, favorite_subjects, club_counts = analyze_data(df)
+    # Ask the user if they want to filter data
+    filter_data = input("Do you want to filter data? (y/n): ").strip().lower()
+    if filter_data in ['y', 'yes']:
+        # User wants to filter data, proceed with filtering process
+        df = get_data_from_google_sheet(CLIENT)
+        total_students, favorite_subjects, club_counts = analyze_data(df)
 
-    # Plotting data (optional)
-    plot_data(df)
+        # Plotting data
+        plot_data(df)
 
-    # Display the results in the console
-    display_results(df, total_students, favorite_subjects, club_counts)
+        # Display the results in the console
+        display_results(df, total_students, favorite_subjects, club_counts)
 
     # Ask the user if they want to add a new student
     add_student = input(
         "\nDo you want to add a new student? (y/n): ").strip().lower()
-    while add_student not in ['y', 'n', 'yes', 'no']:
-        print("Invalid input. Please enter 'y' or 'n' (or 'yes' or 'no').")
-        add_student = input(
-            "Do you want to add a new student? (y/n): ").strip().lower()
-
     if add_student in ['y', 'yes']:
         add_new_student(CLIENT)
 
