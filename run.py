@@ -22,14 +22,14 @@ def get_data_from_google_sheet(CLIENT):
     while True:
         # Ask user for column name and value to filter the data
         column_name = input(
-            "\nEnter column name (Gender, Year, Favourite Subject, or Club): ").strip().title()
+            "\nEnter column name (Gender, Year, Favourite Subject, or Club):\n").strip().title()
         if column_name not in ['Gender', 'Year', 'Favourite Subject', 'Club']:
             print(
                 "Invalid column name. Please choose from Gender, Year, Favourite Subject, or Club.")
             continue
 
         value = input(
-            f"Enter {column_name} to filter the data: ").strip().capitalize()
+            f"Enter {column_name} to filter the data:\n").strip().capitalize()
 
         # Get all records from the worksheet
         data = worksheet.get_all_records()
@@ -92,36 +92,36 @@ def add_new_student(CLIENT):
 
     while True:
         # Get student details from the user and capitalize the names
-        name = input("Enter student name: ").strip().capitalize()
-        gender = input("\nEnter gender (Male/Female): ").strip().capitalize()
+        name = input("Enter student name:\n").strip().capitalize()
+        gender = input("\nEnter gender (Male/Female):\n").strip().capitalize()
 
         while gender not in ['Male', 'Female']:
             print("Invalid gender. Please enter 'Male' or 'Female'.")
-            gender = input("Enter gender (Male/Female): ").strip().capitalize()
+            gender = input("Enter gender (Male/Female):\n").strip().capitalize()
 
         year = input("\nEnter student's year (7-13): ")
         while not year.isdigit() or int(year) not in range(7, 14):
             print("Invalid year. Please enter a number between 7 and 13.")
-            year = input("Enter student's year (7-13): ")
+            year = input("Enter student's year (7-13):\n")
 
         favorite_subject = input(
-            "\nEnter favorite subject: ").strip().capitalize()
+            "\nEnter favorite subject:\n").strip().capitalize()
 
         # Check if the subject already exists in the database
         existing_subjects = set(worksheet.col_values(4)[1:])
         if favorite_subject not in existing_subjects:
             confirm_subject = input(
-                f"'{favorite_subject}' is not in the database. Are you sure you want to add it as a new subject? (y/n): ").strip().lower()
+                f"'{favorite_subject}' is not in the database. Are you sure you want to add it as a new subject? (y/n):\n").strip().lower()
             if confirm_subject not in ['y', 'yes']:
                 continue
 
-        club = input("\nEnter club: ").strip().capitalize()
+        club = input("\nEnter club:\n").strip().capitalize()
 
         # Check if the club already exists in the database
         existing_clubs = set(worksheet.col_values(5)[1:])
         if club not in existing_clubs:
             confirm_club = input(
-                f"'{club}' is not in the database. Are you sure you want to add it as a new club? (y/n): ").strip().lower()
+                f"'{club}' is not in the database. Are you sure you want to add it as a new club? (y/n):\n").strip().lower()
             if confirm_club not in ['y', 'yes']:
                 continue
 
@@ -131,7 +131,7 @@ def add_new_student(CLIENT):
 
         # Ask if the user wants to add another student
         add_another = input(
-            "\nDo you want to add another student? (y/n): ").strip().lower()
+            "\nDo you want to add another student? (y/n):\n").strip().lower()
         if add_another not in ['y', 'yes']:
             break  # Exit the loop if the user doesn't want to add another student
 
@@ -141,7 +141,7 @@ def main():
     CLIENT = authenticate_google_sheets()
 
     # Ask the user if they want to filter data
-    filter_data = input("Do you want to filter data? (y/n): ").strip().lower()
+    filter_data = input("Do you want to filter data? (y/n):\n").strip().lower()
     if filter_data in ['y', 'yes']:
         # User wants to filter data, proceed with filtering process
         df = get_data_from_google_sheet(CLIENT)
@@ -155,7 +155,7 @@ def main():
 
     # Ask the user if they want to add a new student
     add_student = input(
-        "\nDo you want to add a new student? (y/n): ").strip().lower()
+        "\nDo you want to add a new student? (y/n):\n").strip().lower()
     if add_student in ['y', 'yes']:
         add_new_student(CLIENT)
 
