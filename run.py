@@ -62,8 +62,16 @@ def add_new_student(CLIENT):
     while True:
         # Get student details from the user
         name = input("Enter student name: ")
-        gender = input("Enter gender: ")
-        year = input("Enter student's year: ")
+        gender = input("Enter gender (Male/Female): ").capitalize()
+        while gender not in ['Male', 'Female']:
+            print("Invalid gender. Please enter 'Male' or 'Female'.")
+            gender = input("Enter gender (Male/Female): ").capitalize()
+
+        year = input("Enter student's year (7-13): ")
+        while not year.isdigit() or int(year) not in range(7, 14):
+            print("Invalid year. Please enter a number between 7 and 13.")
+            year = input("Enter student's year (7-13): ")
+
         favorite_subject = input("Enter favorite subject: ")
         club = input("Enter club: ")
 
@@ -75,7 +83,7 @@ def add_new_student(CLIENT):
         add_another = input(
             "Do you want to add another student? (y/n): ").lower()
         if add_another != "y":
-            break
+            break  # Exit the loop if the user doesn't want to add another student
 
 
 # Main function that orchestrates the workflow
