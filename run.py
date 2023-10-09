@@ -89,35 +89,48 @@ def add_new_student(CLIENT):
     worksheet = spreadsheet.get_worksheet(0)
 
     while True:
-        # Get student details from the user
-        name = input("Enter student name: ")
-        gender = input("Enter gender (Male/Female or M/F): ").capitalize()
+        # Get student details from the user and capitalize the names
+        name = input("Enter student name: ").strip().capitalize()
+        gender = input("\nEnter gender (Male/Female): ").strip().capitalize()
 
-        while gender not in ['Male', 'M', 'Female', 'F']:
-            print("Invalid gender. Please enter 'Male', 'M', 'Female', or 'F'.")
-            gender = input("Enter gender (Male/Female or M/F): ").capitalize()
+        while gender not in ['Male', 'Female']:
+            print("Invalid gender. Please enter 'Male' or 'Female'.")
+            gender = input("Enter gender (Male/Female): ").strip().capitalize()
 
-        year = input("Enter student's year (7-13): ")
+        year = input("\nEnter student's year (7-13): ")
         while not year.isdigit() or int(year) not in range(7, 14):
             print("Invalid year. Please enter a number between 7 and 13.")
             year = input("Enter student's year (7-13): ")
 
-        favorite_subject = input("Enter favorite subject: ")
-        club = input("Enter club: ")
+        favorite_subject = input(
+            "\nEnter favorite subject: ").strip().capitalize()
+
+        # Check if the subject already exists in the database
+        existing_subjects = set(worksheet.col_values(4)[1:])
+        if favorite_subject not in existing_subjects:
+            confirm_subject = input(
+                f"'{favorite_subject}' is not in the database. Are you sure you want to add it as a new subject? (y/n): ").strip().lower()
+            if confirm_subject not in ['y', 'yes']:
+                continue
+
+        club = input("\nEnter club: ").strip().capitalize()
+
+        # Check if the club already exists in the database
+        existing_clubs = set(worksheet.col_values(5)[1:])
+        if club not in existing_clubs:
+            confirm_club = input(
+                f"'{club}' is not in the database. Are you sure you want to add it as a new club? (y/n): ").strip().lower()
+            if confirm_club not in ['y', 'yes']:
+                continue
 
         # Append student details to the Google Sheet
         worksheet.append_row([name, gender, year, favorite_subject, club])
-        print("Student added successfully!")
+        print("\nStudent added successfully!")
 
         # Ask if the user wants to add another student
         add_another = input(
-            "Do you want to add another student? (y/n): ").strip().lower()
-        while add_another not in ['y', 'n', 'yes', 'no']:
-            print("Invalid input. Please enter 'y' or 'n' (or 'yes' or 'no').")
-            add_another = input(
-                "Do you want to add another student? (y/n): ").strip().lower()
-
-        if add_another in ['n', 'no']:
+            "\nDo you want to add another student? (y/n): ").strip().lower()
+        if add_another not in ['y', 'yes']:
             break  # Exit the loop if the user doesn't want to add another student
 
 
