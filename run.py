@@ -6,8 +6,10 @@ import matplotlib.pyplot as plt
 
 # Function to authenticate with Google Sheets API
 def authenticate_google_sheets():
-    SCOPE = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-    CREDENTIALS = ServiceAccountCredentials.from_json_keyfile_name("creds.json", SCOPE)
+    SCOPE = ["https://spreadsheets.google.com/feeds",
+             "https://www.googleapis.com/auth/drive"]
+    CREDENTIALS = ServiceAccountCredentials.from_json_keyfile_name(
+        "creds.json", SCOPE)
     CLIENT = gspread.authorize(CREDENTIALS)
     return CLIENT
 
@@ -56,41 +58,45 @@ def plot_data(df):
 def add_new_student(CLIENT):
     spreadsheet = CLIENT.open("student_data")
     worksheet = spreadsheet.get_worksheet(0)
-   
-    # Get student details from the user
-    name = input("Enter student name: ")
-    gender = input("Enter gender: ")
-    year = input("Enter student's year: ")
-    favorite_subject = input("Enter favorite subject: ")
-    club = input("Enter club: ")
-   
-    # Append student details to the Google Sheet
-    worksheet.append_row([name, gender, year, favorite_subject, club])
-    print("Student added successfully!")
+
+    while True:
+        # Get student details from the user
+        name = input("Enter student name: ")
+        gender = input("Enter gender: ")
+        year = input("Enter student's year: ")
+        favorite_subject = input("Enter favorite subject: ")
+        club = input("Enter club: ")
+
+        # Append student details to the Google Sheet
+        worksheet.append_row([name, gender, year, favorite_subject, club])
+        print("Student added successfully!")
+
+        # Ask if the user wants to add another student
+        add_another = input(
+            "Do you want to add another student? (y/n): ").lower()
+        if add_another != "y":
+            break
 
 
 # Main function that orchestrates the workflow
 def main():
     CLIENT = authenticate_google_sheets()
 
-
     # Ask the user if they want to add a new student
     add_student = input("Do you want to add a new student? (y/n): ").lower()
     while add_student not in ['y', 'n']:
         print("Invalid input. Please enter 'y' for yes or 'n' for no.")
-        add_student = input("Do you want to add a new student? (y/n): ").lower()
+        add_student = input(
+            "Do you want to add a new student? (y/n): ").lower()
 
     if add_student == "y":
         add_new_student(CLIENT)
-    
 
     df = get_data_from_google_sheet(CLIENT)
     total_students, favorite_subjects, club_counts = analyze_data(df)
 
-
     # Plotting data
     plot_data(df)
-
 
     # Display the results in the console
     display_results(df, total_students, favorite_subjects, club_counts)
