@@ -86,7 +86,30 @@ def add_new_student(CLIENT):
             break  # Exit the loop if the user doesn't want to add another student
 
 
-# Main function that orchestrates the workflow
+def find_students_by_year_and_club(df):
+    year = input("Enter the year (7-13): ")
+    while not year.isdigit() or int(year) not in range(7, 14):
+        print("Invalid year. Please enter a number between 7 and 13.")
+        year = input("Enter the year (7-13): ")
+
+    # Get a list of existing clubs from the dataset
+    existing_clubs = df['Club'].unique()
+
+    club = input("Enter the club name: ")
+    while club not in existing_clubs:
+        print(f"Club '{club}' not found in the database.")
+        print("Existing clubs:", ", ".join(existing_clubs))
+        club = input("Enter an existing club name: ")
+
+    # Filter the DataFrame based on the specified year and validated club
+    filtered_students = df[(df['Year'] == int(year)) & (df['Club'] == club)]
+    count = len(filtered_students)
+
+    print(f"There are {count} students from year {year} in the '{club}' club.")
+
+# Update the main function to include the new functionality
+
+
 def main():
     CLIENT = authenticate_google_sheets()
 
@@ -103,11 +126,17 @@ def main():
     df = get_data_from_google_sheet(CLIENT)
     total_students, favorite_subjects, club_counts = analyze_data(df)
 
-    # Plotting data
+    # Plotting data (optional)
     plot_data(df)
 
     # Display the results in the console
     display_results(df, total_students, favorite_subjects, club_counts)
+
+    # Ask the user if they want to find students by year and club
+    find_students = input(
+        "Do you want to find students by year and club? (y/n): ").lower()
+    if find_students == "y":
+        find_students_by_year_and_club(df)
 
 
 if __name__ == "__main__":
