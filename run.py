@@ -20,13 +20,20 @@ def get_data_from_google_sheet(CLIENT):
     worksheet = spreadsheet.get_worksheet(0)
 
     while True:
-        # Ask user for column name and value to filter the data
+        # Ask user for column name to filter the data
         column_name = input(
             "\nEnter column name (Gender, Year, Favourite Subject, or Club):\n").strip().title()
         if column_name not in ['Gender', 'Year', 'Favourite Subject', 'Club']:
             print(
                 "Invalid column name. Please choose from Gender, Year, Favourite Subject, or Club.")
             continue
+
+        # If the user chooses favorite subject or club, provide a list of available choices
+        if column_name in ['Favourite Subject', 'Club']:
+            available_choices = set(worksheet.col_values(
+                4 if column_name == 'Favourite Subject' else 5)[1:])
+            print(
+                f"Available {column_name} choices: {', '.join(available_choices)}")
 
         value = input(
             f"Enter {column_name} to filter the data:\n").strip().capitalize()
