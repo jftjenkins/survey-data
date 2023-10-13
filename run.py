@@ -99,7 +99,6 @@ def get_data_from_google_sheet(CLIENT):
         if not filtered_df.empty:
             print("\nFiltered Data:")
             print(filtered_df)
-            # Return the filtered data
             return filtered_df
         else:
             print(
@@ -129,6 +128,8 @@ def analyze_data(df):
     club_counts = df["Club"].value_counts().reset_index()
     favorite_subject_counts.columns = ["Favourite Subject", "Count"]
     club_counts.columns = ["Club", "Count"]
+
+    print("\nTotal Students:", total_students)
 
     return total_students, favorite_subject_counts, club_counts
 
