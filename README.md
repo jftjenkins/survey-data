@@ -39,9 +39,9 @@ A live link to the Student Data Google Sheet can be found [here](https://docs.go
 
     ![Filter Data Error](images/filter%20data%20error.png)
 
-    - If the user decides to filter by gender, the user will only be able to input male or female. If they enter anything else, the terminal will tell the user that no records were found. It will then ask if the user still wants to filter the data.
+    - If the user decides to filter by sex, the user will only be able to input male or female. If they enter anything else, the terminal will tell the user that no records were found. It will then ask if the user still wants to filter the data.
 
-    ![Filter Gender Error](images/filter%20gender%20error.png)
+    ![Filter Sex Error](images/filter%sex%20error.png)
 
     - If the user decides to filter by year, they will only be able to input the numbers 7-13 as this covers the Secondary School years for the UK. Once again, if they input something not in this range, the same error message will come up as previously and the user will be asked again if they still wish to filter the data.
     - If the user decides to filter by Favourite Subject or Club, the terminal will tell the user the available clubs to pick from. This is updated based on what subjects or clubs are in the Google Sheet.
@@ -61,4 +61,23 @@ A live link to the Student Data Google Sheet can be found [here](https://docs.go
 - __Add New Student__
     - When a user decides to add a new student to the Google Sheet, they will be asked for the students name first
     - They will then be asked the student's sex and, if they do not put male or female as an input, they will be asked to enter the sex again.
+
+    ![Add Student Sex Error](images/add%20student%20sex%20error.png)
+
+    - The user will then be asked to enter the student's year from 7-13. Once again, if they do not make a valid input, they will be told that the input has to be a number between 7 and 13, and will be asked to input the student's year again.
+    - The user will be asked for the student's favourite subject. If the user enters a subject that does not already exist in the database, they will be asked to confirm that they wish to add a new subject.
+
+    ![Add Student with New Subject](images/add%20student%20new%20subject.png)
+
+    - This has also been implemented for when the user has to add the student's club. If the subject/club already exists, this message will not appear.
+    - This has been implemented so that users are sure they are putting the right information in, and have not possibly made a typo.
+    - Once this is complete, the terminal will ask the user if they wish to add another student. If they say yes, the process will begin again. If they say no, the function will take them back to the Main Menu.
+
+    ![Add New Student Full Example](images/add%20new%20student%20full.png)
+
+    - This new student will now appear at the bottom of the Google Sheet document
+
+    ![Original Google Sheet](images/google%20sheet%20original.png)
+
+    ![Updated Google Sheet](images/google%20sheet%20updated.png)
 
