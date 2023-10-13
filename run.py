@@ -4,8 +4,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-# Function to authenticate with Google Sheets API
 def authenticate_google_sheets():
+    """
+    Function to authenticate with Google Sheets API
+    """
     SCOPE = ["https://spreadsheets.google.com/feeds",
              "https://www.googleapis.com/auth/drive"]
     CREDENTIALS = ServiceAccountCredentials.from_json_keyfile_name(
@@ -14,13 +16,15 @@ def authenticate_google_sheets():
     return CLIENT
 
 
-# Function to retrieve filtered data from Google Sheet
 def get_data_from_google_sheet(CLIENT):
-    spreadsheet = CLIENT.open("student_data")
-    worksheet = spreadsheet.get_worksheet(0)
-
+    """
+    Function to retrieve filtered data from Google Sheet
+    """
     while True:
-        # Ask user for column name to filter the data
+        spreadsheet = CLIENT.open("student_data")
+        worksheet = spreadsheet.get_worksheet(0)
+
+        # Ask user for column name and value to filter the data
         column_name = input(
             "\nEnter column name (Gender, Year, Favourite Subject, or Club):\n").strip().title()
         if column_name not in ['Gender', 'Year', 'Favourite Subject', 'Club']:
@@ -28,12 +32,11 @@ def get_data_from_google_sheet(CLIENT):
                 "Invalid column name. Please choose from Gender, Year, Favourite Subject, or Club.")
             continue
 
-        # If the user chooses favorite subject or club, provide a list of available choices
         if column_name in ['Favourite Subject', 'Club']:
-            available_choices = set(worksheet.col_values(
-                4 if column_name == 'Favourite Subject' else 5)[1:])
-            print(
-                f"Available {column_name} choices: {', '.join(available_choices)}")
+            # Provide a list of available choices
+            existing_choices = set(worksheet.col_values(4)[1:]) if column_name == 'Favourite Subject' else set(
+                worksheet.col_values(5)[1:])
+            print(f"Available {column_name}s: {', '.join(existing_choices)}")
 
         value = input(
             f"Enter {column_name} to filter the data:\n").strip().capitalize()
@@ -57,14 +60,26 @@ def get_data_from_google_sheet(CLIENT):
 
         # Check if any records were found
         if not filtered_df.empty:
-            return filtered_df
+            print("\nFiltered Data:")
+            print(filtered_df)
         else:
             print(
                 f"No records found for {column_name}: {value}. Please try again.")
 
+        # Ask if the user wants to filter data again
+        repeat_filter = input(
+            "\nDo you want to filter data again? (y/n):\n").strip().lower()
+        if repeat_filter not in ['y', 'yes']:
+            break
 
-# Function to analyze the data (total students, favorite subjects, club counts)
+    return filtered_df
+
+
 def analyze_data(df):
+    """
+    Function to analyze the data (total students,
+    favorite subjects, club counts)
+    """
     total_students = len(df)
     favorite_subjects = df['Favourite Subject'].value_counts().reset_index()
     club_counts = df['Club'].value_counts().reset_index()
@@ -73,8 +88,10 @@ def analyze_data(df):
     return total_students, favorite_subjects, club_counts
 
 
-# Function to display data and analysis results in the console
 def display_results(df, total_students, favorite_subjects, club_counts):
+    """
+    Function to display data and analysis results in the console
+    """
     print()
     print("Survey Data:")
     print()
@@ -82,18 +99,10 @@ def display_results(df, total_students, favorite_subjects, club_counts):
     print("\nTotal Students:", total_students)
 
 
-# Function to plot the data (gender distribution, favorite subjects distribution)
-def plot_data(df):
-    plt.figure(figsize=(8, 6))
-    df['Gender'].value_counts().plot(kind='bar')
-    plt.title('Distribution of Gender')
-    plt.xlabel('Gender')
-    plt.ylabel('Count')
-    plt.show()
-
-
-# Function to add a new student to the Google Sheet
 def add_new_student(CLIENT):
+    """
+    Function to add a new student to the Google Sheet
+    """
     spreadsheet = CLIENT.open("student_data")
     worksheet = spreadsheet.get_worksheet(0)
 
@@ -152,8 +161,10 @@ def add_new_student(CLIENT):
             break  # Exit the loop if the user doesn't want to add another student
 
 
-# Main function that orchestrates the workflow
 def main():
+    """
+    Main function that orchestrates the workflow
+    """
     CLIENT = authenticate_google_sheets()
 
     # Ask the user if they want to filter data
@@ -162,9 +173,6 @@ def main():
         # User wants to filter data, proceed with filtering process
         df = get_data_from_google_sheet(CLIENT)
         total_students, favorite_subjects, club_counts = analyze_data(df)
-
-        # Plotting data
-        plot_data(df)
 
         # Display the results in the console
         display_results(df, total_students, favorite_subjects, club_counts)
@@ -177,4 +185,5 @@ def main():
 
 
 if __name__ == "__main__":
+    # Exectue main Python function
     main()
