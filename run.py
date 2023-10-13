@@ -52,15 +52,15 @@ def get_data_from_google_sheet(CLIENT):
         column_name = (
             input(
                 "\nEnter column name "
-                "(Gender, Year, Favourite Subject, or Club):\n"
+                "(Sex, Year, Favourite Subject, or Club):\n"
             )
             .strip()
             .title()
         )
-        if column_name not in ["Gender", "Year", "Favourite Subject", "Club"]:
+        if column_name not in ["Sex", "Year", "Favourite Subject", "Club"]:
             print(
                 "Invalid column name. "
-                "Please choose from Gender, Year, Favourite Subject, or Club."
+                "Please choose from Sex, Year, Favourite Subject, or Club."
             )
             continue
 
@@ -144,12 +144,12 @@ def add_new_student(CLIENT):
     while True:
         # Get student details from the user and capitalize the names
         name = input("Enter student name:\n").strip().capitalize()
-        gender = input("\nEnter gender (Male/Female):\n").strip().capitalize()
+        sex = input("\nEnter sex (Male/Female):\n").strip().capitalize()
 
-        while gender not in ["Male", "Female"]:
-            print("Invalid gender. Please enter 'Male' or 'Female'.")
-            gender = (
-                input("Enter gender (Male/Female):\n").strip().capitalize()
+        while sex not in ["Male", "Female"]:
+            print("Invalid sex. Please enter 'Male' or 'Female'.")
+            sex = (
+                input("Enter sex (Male/Female):\n").strip().capitalize()
             )
 
         year = input("\nEnter student's year (7-13): ")
@@ -186,7 +186,7 @@ def add_new_student(CLIENT):
                 continue
 
         # Append student details to the Google Sheet
-        worksheet.append_row([name, gender, year, favorite_subject, club])
+        worksheet.append_row([name, sex, year, favorite_subject, club])
         print("\nStudent added successfully!")
 
         # Ask if the user wants to add another student
