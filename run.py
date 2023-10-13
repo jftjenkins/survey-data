@@ -103,7 +103,8 @@ def get_data_from_google_sheet(CLIENT):
             return filtered_df
         else:
             print(
-                f"No records found for {column_name}: {value}. Please try again."
+                f"No records found for {column_name}: {value}."
+                "Please try again."
             )
 
         # Ask if the user wants to filter data again
@@ -164,7 +165,8 @@ def add_new_student(CLIENT):
         existing_subjects = set(worksheet.col_values(4)[1:])
         if favorite_subject not in existing_subjects:
             confirm_subject = input(
-                f"'{favorite_subject}' is not in the database. Do you want to add it as a new subject? (y/n):\n"
+                f"'{favorite_subject}' is not in the database. "
+                "Do you want to add it as a new subject? (y/n):\n"
             ).strip().lower()
             if confirm_subject not in ["y", "yes"]:
                 continue
@@ -176,7 +178,8 @@ def add_new_student(CLIENT):
         existing_clubs = set(worksheet.col_values(5)[1:])
         if club not in existing_clubs:
             confirm_club = input(
-                f"'{club}' is not in the database. Do you want to add it as a new club? (y/n):\n"
+                f"'{club}' is not in the database. "
+                "Do you want to add it as a new club? (y/n):\n"
             ).strip().lower()
             if confirm_club not in ["y", "yes"]:
                 continue
