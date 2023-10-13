@@ -2,6 +2,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import pandas as pd
 import matplotlib.pyplot as plt
+import pyfiglet
 
 
 def authenticate_google_sheets():
@@ -62,6 +63,8 @@ def get_data_from_google_sheet(CLIENT):
         if not filtered_df.empty:
             print("\nFiltered Data:")
             print(filtered_df)
+            # Return the filtered data
+            return filtered_df
         else:
             print(
                 f"No records found for {column_name}: {value}. Please try again.")
@@ -70,9 +73,8 @@ def get_data_from_google_sheet(CLIENT):
         repeat_filter = input(
             "\nDo you want to filter data again? (y/n):\n").strip().lower()
         if repeat_filter not in ['y', 'yes']:
-            break
-
-    return filtered_df
+            # Return None if the user does not want to filter data again
+            return None
 
 
 def analyze_data(df):
@@ -93,9 +95,6 @@ def display_results(df, total_students, favorite_subjects, club_counts):
     Function to display data and analysis results in the console
     """
     print()
-    print("Survey Data:")
-    print()
-    print(df)
     print("\nTotal Students:", total_students)
 
 
@@ -167,23 +166,35 @@ def main():
     """
     CLIENT = authenticate_google_sheets()
 
-    # Ask the user if they want to filter data
-    filter_data = input("Do you want to filter data? (y/n):\n").strip().lower()
-    if filter_data in ['y', 'yes']:
-        # User wants to filter data, proceed with filtering process
-        df = get_data_from_google_sheet(CLIENT)
-        total_students, favorite_subjects, club_counts = analyze_data(df)
+    while True:
+        # Print Main Menu with ASCII art text for "Main Menu"
+        main_menu = pyfiglet.figlet_format("Main Menu")
+        print(main_menu)
+        print("\n1. Filter Data")
+        print("2. Add New Student")
+        print("3. Exit")
+        choice = input("\nEnter your choice (1, 2, or 3):\n").strip()
 
-        # Display the results in the console
-        display_results(df, total_students, favorite_subjects, club_counts)
-
-    # Ask the user if they want to add a new student
-    add_student = input(
-        "\nDo you want to add a new student? (y/n):\n").strip().lower()
-    if add_student in ['y', 'yes']:
-        add_new_student(CLIENT)
+        if choice == '1':
+            # User wants to filter data, proceed with filtering process
+            df = get_data_from_google_sheet(CLIENT)
+            if df is not None:
+                total_students, favorite_subjects, club_counts = analyze_data(
+                    df)
+                # Display the results in the console
+                display_results(df, total_students,
+                                favorite_subjects, club_counts)
+        elif choice == '2':
+            # User wants to add a new student
+            add_new_student(CLIENT)
+        elif choice == '3':
+            # User wants to exit the program
+            print("Exiting the program. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please enter 1, 2, or 3.")
 
 
 if __name__ == "__main__":
-    # Exectue main Python function
+    # Execute main Python function
     main()
