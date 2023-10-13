@@ -1,7 +1,6 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import pandas as pd
-import matplotlib.pyplot as plt
 import pyfiglet
 
 
@@ -15,6 +14,22 @@ def authenticate_google_sheets():
         "creds.json", SCOPE)
     CLIENT = gspread.authorize(CREDENTIALS)
     return CLIENT
+
+
+def get_user_choice():
+    """
+    Function to display the main menu and get user choice
+    """
+    while True:
+        print(pyfiglet.figlet_format("Main Menu"))
+        print("1. Filter Data")
+        print("2. Add New Student")
+        print("3. Exit")
+        choice = input("\nEnter your choice (1, 2, or 3):\n").strip()
+        if choice in ['1', '2', '3']:
+            return choice
+        else:
+            print("Invalid choice. Please enter 1, 2, or 3.")
 
 
 def get_data_from_google_sheet(CLIENT):
@@ -167,32 +182,20 @@ def main():
     CLIENT = authenticate_google_sheets()
 
     while True:
-        # Print Main Menu with ASCII art text for "Main Menu"
-        main_menu = pyfiglet.figlet_format("Main Menu")
-        print(main_menu)
-        print("\n1. Filter Data")
-        print("2. Add New Student")
-        print("3. Exit")
-        choice = input("\nEnter your choice (1, 2, or 3):\n").strip()
+        choice = get_user_choice()
 
         if choice == '1':
-            # User wants to filter data, proceed with filtering process
             df = get_data_from_google_sheet(CLIENT)
             if df is not None:
                 total_students, favorite_subjects, club_counts = analyze_data(
                     df)
-                # Display the results in the console
                 display_results(df, total_students,
                                 favorite_subjects, club_counts)
         elif choice == '2':
-            # User wants to add a new student
             add_new_student(CLIENT)
-        elif choice == '3':
-            # User wants to exit the program
+        else:
             print("Exiting the program. Goodbye!")
             break
-        else:
-            print("Invalid choice. Please enter 1, 2, or 3.")
 
 
 if __name__ == "__main__":
