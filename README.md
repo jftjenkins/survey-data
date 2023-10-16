@@ -107,10 +107,12 @@ This code was deployed using Code Institute's mcok terminal for Heroku.
 
 I have manually tested the code by doing the following:
     
-    - Passed the code through the [CI Python Linter](https://pep8ci.herokuapp.com/) and confirmed there were no problems/errors
-    ![Code Authenticator](images/code%20authenticator.png)
-    - Gave the code different invalid inputs at different points in the program to make sure correct responses were created by the code.
-    - Tested the code both in the local terminal provided within CodeAnywhere, and within the CI Heroku Terminal
+- Passed the code through the [CI Python Linter](https://pep8ci.herokuapp.com/) and confirmed there were no problems/errors
+
+![Code Authenticator](images/code%20authenticator.png)
+
+- Gave the code different invalid inputs at different points in the program to make sure correct responses were created by the code.
+- Tested the code both in the local terminal provided within CodeAnywhere, and within the CI Heroku Terminal
 
 ### Bugs
 
