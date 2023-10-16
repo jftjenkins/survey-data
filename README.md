@@ -25,6 +25,7 @@ A live link to the Student Data Google Sheet can be found [here](https://docs.go
 ### Existing Features
 
 - __Main Menu__
+
     - When first booted up, the first thing that appears is the Main Menu. The style of font seen is achieved using the <b>pyfiglet</b> plugin.
     - From the Main Menu, users can navigate either to the Filter section of the code, or to the Add New Student section. There is also the option to quit the code.
     - This is all achieved by simply typing in 1, 2, or 3 in the terminal.
@@ -34,6 +35,7 @@ A live link to the Student Data Google Sheet can be found [here](https://docs.go
     ![Main Menu Error](images/main%20menu%20error.png)
 
 - __Filter Data__
+
     - When users decide to use the Filter Data function, the terminal will first ask them to choose how they filter the data, with a list of choices. 
     - If the user does not input any of the available choices, it will come up with an error and ask them to choose again.
 
@@ -59,6 +61,7 @@ A live link to the Student Data Google Sheet can be found [here](https://docs.go
     - The function will then terminate and the user will be taken directly back to the Main Menu.
 
 - __Add New Student__
+
     - When a user decides to add a new student to the Google Sheet, they will be asked for the students name first
     - They will then be asked the student's sex and, if they do not put male or female as an input, they will be asked to enter the sex again.
 
@@ -81,3 +84,9 @@ A live link to the Student Data Google Sheet can be found [here](https://docs.go
 
     ![Updated Google Sheet](images/google%20sheet%20updated.png)
 
+- __Future Features__
+
+    - Allow users to filter data by more than one variable eg. Student's that have Maths as a Favourite Subject AND are in Drama Club
+    - Implement some way for filtered data to be displayed graphically as well, perhaps using <b>matplotlib</b>
+    - Implement some sort of user authentication into the Python code so that only those with valid username and passwords are able to access the data
+    - Implement a feature that allows users to edit or delete already existing student data
