@@ -136,13 +136,13 @@ I have manually tested the code by doing the following:
 ### Code
 
 The following sources were used for this project:
-    - [Example Spreadsheet](https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit?usp=sharing)
-    - Python Essentials from [Code Institute](https://codeinstitute.net/)
-    - [Gspread](https://docs.gspread.org/en/v5.10.0/)
-    - [black](https://pypi.org/project/black/)
-    - [Matplotlib](https://matplotlib.org/)
-    - [W3 Schools](https://www.w3schools.com/python/matplotlib_pyplot.asp)
-    - [freeCodeCamp](https://www.freecodecamp.org/news/writing-good-commit-messages-a-practical-guide/)
+- [Example Spreadsheet](https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit?usp=sharing)
+- Python Essentials from [Code Institute](https://codeinstitute.net/)
+- [Gspread](https://docs.gspread.org/en/v5.10.0/)
+- [black](https://pypi.org/project/black/)
+- [Matplotlib](https://matplotlib.org/)
+- [W3 Schools](https://www.w3schools.com/python/matplotlib_pyplot.asp)
+- [freeCodeCamp](https://www.freecodecamp.org/news/writing-good-commit-messages-a-practical-guide/)
 
 ### Achnowledgements
 
