@@ -90,3 +90,65 @@ A live link to the Student Data Google Sheet can be found [here](https://docs.go
     - Implement some way for filtered data to be displayed graphically as well, perhaps using <b>matplotlib</b>
     - Implement some sort of user authentication into the Python code so that only those with valid username and passwords are able to access the data
     - Implement a feature that allows users to edit or delete already existing student data
+
+## Deployment
+
+This code was deployed using Code Institute's mcok terminal for Heroku.
+
+- __Steps for deployment:__
+    - Fork or clone this repository
+    - Create a new Heroku app
+    - Set the buildbacks to <b>Python</b> and <b>NodeJS</b> in that order
+    - Link the Heroku app to the repository
+    - Click on <b>Deploy</b>
+    - Make sure [this Google Sheet](ttps://docs.google.com/spreadsheets/d/1OTNuh06X-GHCG1R-ZOdrq5prXCNZEzCgLlbxohJGBJM/edit?usp=sharing) is open to display the already existing data, and any data you add through the use of the terminal.
+
+## Testing
+
+I have manually tested the code by doing the following:
+    - Passed the code through the [CI Python Linter](https://pep8ci.herokuapp.com/) and confirmed there were no problems/errors
+    
+    ![Code Authenticator](images/code%20authenticator.png)
+
+    - Gave the code different invalid inputs at different points in the program to make sure correct responses were created by the code.
+    - Tested the code both in the local terminal provided within CodeAnywhere, and within the CI Heroku Terminal
+
+### Bugs
+
+- __Solved Bugs__
+
+    - Duplicated Entries: When adding a new student with a favorite subject or club that did not exist in the database, the script allowed the addition but resulted in duplicated entries for the same subject or club. To fix this, a check was added to verify if the subject or club already existed in the database. If it did not exist, the script prompted the user for confirmation before adding it as a new subject or club. This check ensured that duplicate entries were avoided.
+    - Data Overwriting: There were instances where existing student data was being overwritten, especially related to favorite subjects and clubs. This occurred when new subjects or clubs were added, potentially impacting existing records. The overwriting issue was resolved by refining the logic for adding new subjects and clubs.
+    - Filtering Issue: There was an issue with displaying the total number of students when filtering data. The total count of students wasn't being printed to the console during the filtering process. The issue with displaying the total number of students during filtering was fixed by modifying the analyze_data function. The function was updated to include a print statement that outputs the total number of students in the filtered dataset, ensuring that the total count is displayed to the user.
+
+- __Remaining Bugs__
+
+    - No bugs remaining
+
+- __Validator Test__
+
+    - [PEP8](https://pep8ci.herokuapp.com/)
+        - No errors were returned from pep8ci.herokuapp.com/
+
+## Credits
+
+### Code
+
+The following sources were used for this project:
+    - [Example Spreadsheet](https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit?usp=sharing)
+    - Python Essentials from [Code Institute](https://codeinstitute.net/)
+    - [Gspread](https://docs.gspread.org/en/v5.10.0/)
+    - [black](https://pypi.org/project/black/)
+    - [Matplotlib](https://matplotlib.org/)
+    - [W3 Schools](https://www.w3schools.com/python/matplotlib_pyplot.asp)
+    - [freeCodeCamp](https://www.freecodecamp.org/news/writing-good-commit-messages-a-practical-guide/)
+
+### Achnowledgements
+
+- The Slack community, particularly Lucimeri Andretta, who helped me with the layout of this README file
+- My Mentor Sandeep Aggarwal for continuours feedback during the project and helping envision my ideas
+
+
+- - -
+
+Developed by Joseph Jenkins for Code Institute's Project 3. Feel free to connect with me on my [LinkedIn](www.linkedin.com/in/joseph-jenkins-baille-637a55205)
